@@ -1,5 +1,7 @@
 var Entity = require( './Entity' ),
-	Rotate = require( '../components/Rotate' );
+	Rotatable = require( '../components/Rotatable' ),
+	Positionable = require( '../components/Positionable' )
+;
 
 class Player extends Entity {
 
@@ -7,8 +9,11 @@ class Player extends Entity {
 
 		super( texture );
 
-		this.rotate = new Rotate();
-		this.components.add( this.rotate );
+		this.rotatable = new Rotatable();
+		this.positionable = new Positionable();
+
+		this.components.add( this.rotatable );
+		this.components.add( this.positionable );
 	}
 }
 

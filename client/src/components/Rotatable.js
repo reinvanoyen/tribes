@@ -1,10 +1,12 @@
-var Component = require( './Component' );
+var Component = require( './Component'),
+	Vec2 = require( '../util/Vector2f' )
+;
 
-class Rotate extends Component {
+class Rotatable extends Component {
 
 	onAttach( e ) {
 
-		console.log( 'attached rotate' );
+		this.direction = new Vec2( 0, 1 );
 	}
 
 	onDetach( e ) {
@@ -23,4 +25,4 @@ class Rotate extends Component {
 	}
 }
 
-module.exports = Rotate;
+module.exports = Rotatable;
