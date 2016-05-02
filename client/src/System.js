@@ -10,26 +10,26 @@ class System {
 
 	add( c ) {
 
-		c.onAttach();
+		c.attach( this.entity );
 		this.components.push( c );
 	}
 
 	remove( c ) {
 
-		this.components.forEach( function ( cc ) {
+		let i = this.components.indexOf( c );
 
-			if( c.toString() == cc.toString() ) {
+		if( i > -1 ) {
 
-				// @TODO remove component
-			}
-		} );
+			c.detach();
+			this.components.splice( i, 1 );
+		}
 	}
 
-	update() {
+	update( delta ) {
 
 		this.components.forEach( function ( c ) {
 
-			c.update();
+			c.update( delta );
 		} );
 	}
 }

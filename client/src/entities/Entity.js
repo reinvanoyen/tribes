@@ -1,8 +1,8 @@
 "use strict";
 
 var PIXI = require( 'pixi.js' ),
-	util = require( '../util' ),
-	System = require( '../System' );
+	System = require( '../System' )
+;
 
 class Entity {
 
@@ -15,9 +15,9 @@ class Entity {
 		this.components = new System( this );
 	}
 
-	update() {
+	update( delta ) {
 
-		this.components.update();
+		this.components.update( delta );
 	}
 }
 

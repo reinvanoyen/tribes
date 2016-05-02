@@ -3,7 +3,8 @@
 var PIXI = require( 'pixi.js' ),
 	$ = require( 'jquery' ),
 	Renderer = require( './Renderer' ),
-	Player = require( './entities/Player' );
+	Player = require( './entities/Player' )
+;
 
 class App {
 

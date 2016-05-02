@@ -1,11 +1,15 @@
 var $ = require( 'jquery' ),
 	PIXI = require( 'pixi.js' ),
-	util = require( './util' );
+	proxy = require( './util/proxy' ),
+	Clock = require( 'clock-timer.js' )
+	;
 
 class Renderer {
 
 	constructor() {
-		
+
+		this.clock = new Clock();
+
 		this.renderer = new PIXI.WebGLRenderer(800, 600);
 		this.stage = new PIXI.Container();
 		this.entities = [];
@@ -26,11 +30,15 @@ class Renderer {
 	
 	render() {
 
-		requestAnimationFrame( util.proxy( this, this.render ) );
+		requestAnimationFrame( proxy( this, this.render ) );
+
+		this.clock.tick();
+
+		var that = this;
 
 		this.entities.forEach( function( e ) {
 
-			e.update();
+			e.update( that.clock.deltaTime );
 		} );
 
 		this.renderer.render( this.stage );

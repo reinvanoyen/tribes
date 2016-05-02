@@ -7,7 +7,8 @@ class Player extends Entity {
 
 		super( texture );
 
-		this.components.add( new Rotate( this ) );
+		this.rotate = new Rotate();
+		this.components.add( this.rotate );
 	}
 }
 
