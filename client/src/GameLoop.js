@@ -1,18 +1,22 @@
 var $ = require( 'jquery' ),
 	PIXI = require( 'pixi.js' ),
 	proxy = require( './util/proxy' ),
-	Clock = require( 'clock-timer.js' )
-	;
+	Clock = require( 'clock-timer.js' ),
+	MainSystem = require( './MainSystem' ),
+	RenderSystem = require( './systems/RenderSystem' )
+;
 
-class Renderer {
+class GameLoop {
 
 	constructor() {
 
 		this.clock = new Clock();
 
-		this.renderer = new PIXI.WebGLRenderer(800, 600);
+		this.renderer = new PIXI.WebGLRenderer( 800, 600 );
 		this.stage = new PIXI.Container();
-		this.entities = [];
+
+		MainSystem.init( this );
+		MainSystem.add( 'rendersys', new RenderSystem() );
 	}
 	
 	build() {
@@ -22,27 +26,14 @@ class Renderer {
 		this.render();
 	}
 
-	addEntity( e ) {
-
-		this.entities.push( e );
-		this.stage.addChild( e.sprite );
-	}
-	
 	render() {
 
 		requestAnimationFrame( proxy( this, this.render ) );
 
 		this.clock.tick();
-
-		var that = this;
-
-		this.entities.forEach( function( e ) {
-
-			e.update( that.clock.deltaTime );
-		} );
-
+		MainSystem.update( this.clock.deltaTime );
 		this.renderer.render( this.stage );
 	}
 }
 
-module.exports = Renderer;
+module.exports = GameLoop;

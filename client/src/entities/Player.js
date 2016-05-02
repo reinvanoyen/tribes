@@ -1,19 +1,14 @@
 var Entity = require( './Entity' ),
-	Rotatable = require( '../components/Rotatable' ),
-	Positionable = require( '../components/Positionable' )
+	Appearance = require( '../components/Appearance' )
 ;
 
 class Player extends Entity {
 
-	constructor( texture ) {
+	constructor() {
 
-		super( texture );
-
-		this.rotatable = new Rotatable();
-		this.positionable = new Positionable();
-
-		this.components.add( this.rotatable );
-		this.components.add( this.positionable );
+		super();
+		
+		this.addComponent( new Appearance( 'assets/player.png' ) );
 	}
 }
 

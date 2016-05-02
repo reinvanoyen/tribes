@@ -2,7 +2,7 @@
 
 var PIXI = require( 'pixi.js' ),
 	$ = require( 'jquery' ),
-	Renderer = require( './Renderer' ),
+	GameLoop = require( './GameLoop' ),
 	Player = require( './entities/Player' )
 ;
 
@@ -13,14 +13,17 @@ class App {
 		this.client = new Colyseus('ws://localhost:3553');
 		this.joinRoom( 'room' );
 
-		this.renderer = new Renderer();
-		this.renderer.build();
+		this.gameloop = new GameLoop();
+		this.gameloop.build();
 
 		var that = this;
-		PIXI.loader.add( 'player', 'assets/player.png' ).load( function( loader, resources ) {
 
-			that.renderer.addEntity( new Player( resources.player.texture ) );
-		} );
+		PIXI.loader
+			.add( 'player', 'assets/player.png' )
+			.load( function( loader, resources ) {
+
+				let player = new Player();
+			} );
 	}
 
 	joinRoom( roomName ) {
