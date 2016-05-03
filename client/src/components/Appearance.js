@@ -1,16 +1,27 @@
 var Component = require( './Component'),
-	MainSystem = require( '../MainSystem' ),
-	PIXI = require( 'pixi.js' );
+	MainSystem = require( '../MainSystem'),
+	PIXI = require( 'pixi.js' )
+;
 
 class Appearance extends Component {
 
-	constructor( texture ) {
+	constructor( radius ) {
 
 		super();
 
-		this.sprite = new PIXI.Sprite( PIXI.Texture.fromImage( texture ) );
+		this.radius = radius;
 
-		MainSystem.get( 'rendersys' ).add( this );
+		this.disc = new PIXI.Graphics();
+		this.disc.lineStyle( 2, 0xcccccc );
+		this.disc.drawCircle( 0, 0, radius );
+		this.disc.endFill();
+
+		MainSystem.get( 'render_system' ).add( this );
+	}
+
+	toString() {
+
+		return 'appearance';
 	}
 }
 

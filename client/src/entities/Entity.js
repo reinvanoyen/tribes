@@ -4,12 +4,23 @@ class Entity {
 
 	constructor() {
 		
-		this.components = [];
+		this.components = {};
 	}
 
 	addComponent( c ) {
 
-		this.components.push( c );
+		c.attach( this );
+		this.components[ c.toString() ] = c;
+	}
+
+	hasComponent( k ) {
+
+		return ( typeof this.components[ k ] !== 'undefined' );
+	}
+
+	getComponent( k ) {
+
+		return this.components[ k ];
 	}
 }
 

@@ -1,7 +1,8 @@
 var proxy = require( './util/proxy' ),
 	Clock = require( 'clock-timer.js' ),
 	MainSystem = require( './MainSystem' ),
-	RenderSystem = require( './systems/RenderSystem' )
+	RenderSystem = require( './systems/RenderSystem' ),
+	PhysicsSystem = require( './systems/PhysicsSystem' )
 ;
 
 class Runtime {
@@ -11,7 +12,8 @@ class Runtime {
 		this.clock = new Clock();
 
 		MainSystem.init( this );
-		MainSystem.add( 'rendersys', new RenderSystem() );
+		MainSystem.add( 'render_system', new RenderSystem() );
+		MainSystem.add( 'physics_system', new PhysicsSystem() );
 
 		this.run();
 	}

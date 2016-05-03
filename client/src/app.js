@@ -3,7 +3,11 @@
 var PIXI = require( 'pixi.js' ),
 	$ = require( 'jquery' ),
 	Runtime = require( './Runtime' ),
-	Player = require( './entities/Player' )
+	Entity = require( './entities/Entity'),
+	Appearance = require( './components/Appearance'),
+	Position = require( './components/Position'),
+	Physics = require( './components/Physics' ),
+	Target = require( './components/Target' )
 ;
 
 class App {
@@ -12,17 +16,25 @@ class App {
 
 		this.client = new Colyseus('ws://localhost:3553');
 		this.joinRoom( 'room' );
-
 		this.runtime = new Runtime();
+		this.ready();
+	}
 
-		var that = this;
+	ready() {
 
-		PIXI.loader
-			.add( 'player', 'assets/player.png' )
-			.load( function( loader, resources ) {
+		let player = new Entity();
+		player.addComponent( new Appearance( 5 ) );
+		player.addComponent( new Position( 50, 10 ) );
 
-				let player = new Player();
-			} );
+		let player2 = new Entity();
+		player2.addComponent( new Appearance( 10 ) );
+		player2.addComponent( new Position( 600, 200 ) );
+
+		let player3 = new Entity();
+		player3.addComponent( new Appearance( 20 ) );
+		player3.addComponent( new Position( 300, 250 ) );
+		player3.addComponent( new Target( 300, 500 ) );
+		player3.addComponent( new Physics( 10 ) );
 	}
 
 	joinRoom( roomName ) {

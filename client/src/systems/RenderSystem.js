@@ -18,14 +18,18 @@ class RenderSystem extends System {
 
 	onNewComponent( c ) {
 
-		this.stage.addChild( c.sprite );
+		this.stage.addChild( c.disc );
 	}
 
 	update( delta ) {
 
 		this.components.forEach( function( c ) {
 
-			console.log( 'render at loc' );
+			if( c.entity.hasComponent( 'position' ) ) {
+
+				c.disc.x = c.entity.getComponent( 'position' ).position.x;
+				c.disc.y = c.entity.getComponent( 'position' ).position.y;
+			}
 		} );
 
 		this.renderer.render( this.stage );

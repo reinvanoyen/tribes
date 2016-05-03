@@ -7,12 +7,20 @@ class Vector2f {
 	}
 
 	length() {
-		return Math.sqrt( this.x * this.x + this.y * this.y );
+
+		let len = Math.sqrt( Math.abs( this.x * this.x + this.y * this.y ) );
+
+		if( isNaN( len ) ) {
+
+			return 0;
+		}
+
+		return len;
 	}
 
 	lerp( v, factor ) {
 
-		return v.sub( this ).mul_f( factor ).add( this );
+		return v.sub( this ).mul( factor ).add( this );
 	}
 
 	dot( v ) {
@@ -20,41 +28,63 @@ class Vector2f {
 		return ( this.x * v.x ) + ( this.y * v.y );
 	}
 
-	normalized() {
+	normalize() {
 
-		var length = this.length();
+		let length = this.length();
+
 		return new Vector2f( this.x / length, this.y / length );
 	}
 
 	cross( v ) {
+
 		return ( this.x * v.y ) - ( this.y * v.x );
 	}
 
 	rotate( angle ) {
 
-		var rad = Math.toRadians( angle );
-		var cos = Math.cos( rad );
-		var sin = Math.sin( rad );
+		let rad = Math.toRadians( angle );
+		let cos = Math.cos( rad );
+		let sin = Math.sin( rad );
 
 		return new Vector2f( this.x * cos - this.y * sin, this.x * sin + this.y * cos );
 	}
 
 	add( v ) {
 
+		if( typeof v === 'number' ) {
+
+			return new Vector2f( this.x + v, this.y + v );
+		}
+
 		return new Vector2f( this.x + v.x, this.y + v.y );
 	}
 
 	sub( v ) {
+
+		if( typeof v === 'number' ) {
+
+			return new Vector2f( this.x - v, this.y - v );
+		}
 
 		return new Vector2f( this.x - v.x, this.y - v.y );
 	}
 
 	mul( v ) {
 
+		if( typeof v === 'number' ) {
+
+			return new Vector2f( this.x * v, this.y * v );
+		}
+
 		return new Vector2f( this.x * v.x, this.y * v.y );
 	}
 
 	div( v ) {
+
+		if( typeof v === 'number' ) {
+
+			return new Vector2f( this.x / v, this.y / v );
+		}
 
 		return new Vector2f( this.x / v.x, this.y / v.y );
 	}
