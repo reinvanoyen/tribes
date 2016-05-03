@@ -1,5 +1,5 @@
 var Component = require( './Component'),
-	MainSystem = require( '../MainSystem'),
+	World = require( '../World'),
 	PIXI = require( 'pixi.js' )
 ;
 
@@ -16,10 +16,10 @@ class Appearance extends Component {
 		this.disc.drawCircle( 0, 0, radius );
 		this.disc.endFill();
 
-		MainSystem.get( 'render_system' ).add( this );
+		World.get( 'rendering' ).add( this );
 	}
 
-	toString() {
+	get name() {
 
 		return 'appearance';
 	}

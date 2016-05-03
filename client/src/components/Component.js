@@ -5,9 +5,8 @@ class Component {
 		this.entity = e;
 	}
 
-	toString() {
-
-		return 'unnamed_component';
+	get name() {
+		throw "Component needs to implement name";
 	}
 }
 

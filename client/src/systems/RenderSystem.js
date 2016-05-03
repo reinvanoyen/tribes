@@ -1,9 +1,11 @@
 var System = require( './System' ),
-	MainSystem = require( '../MainSystem'),
 	PIXI = require( 'pixi.js'),
-	$ = require( 'jquery' )
+	$ = require( 'jquery' ),
+	rand = require( '../util/rand' ),
+	Outline = require( '../rendering/filters/Outline' ),
+	Lightmap = require( '../rendering/filters/Lightmap' )
 ;
-
+//
 class RenderSystem extends System {
 
 	constructor() {
@@ -11,7 +13,10 @@ class RenderSystem extends System {
 		super();
 
 		this.renderer = new PIXI.WebGLRenderer( 800, 600 );
+		this.renderer.backgroundColor = 0x0A042C;
 		this.stage = new PIXI.Container();
+
+		this.stage.filters = [ new Outline( 800, 600, 5, 0xF14000 ) ) ];
 
 		$( 'body' ).append( $( this.renderer.view ) );
 	}
@@ -23,7 +28,7 @@ class RenderSystem extends System {
 
 	update( delta ) {
 
-		this.components.forEach( function( c ) {
+		this.components.forEach( c => {
 
 			if( c.entity.hasComponent( 'position' ) ) {
 
@@ -33,6 +38,10 @@ class RenderSystem extends System {
 		} );
 
 		this.renderer.render( this.stage );
+	}
+
+	get name() {
+		return 'rendering';
 	}
 }
 

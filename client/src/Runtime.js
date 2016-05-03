@@ -1,8 +1,16 @@
 var proxy = require( './util/proxy' ),
+	rand = require( './util/rand' ),
 	Clock = require( 'clock-timer.js' ),
-	MainSystem = require( './MainSystem' ),
+	World = require( './World' ),
 	RenderSystem = require( './systems/RenderSystem' ),
-	PhysicsSystem = require( './systems/PhysicsSystem' )
+	PhysicsSystem = require( './systems/PhysicsSystem' ),
+	PlayerControlSystem = require( './systems/PlayerControlSystem' ),
+	Entity = require( './entities/Entity'),
+	Appearance = require( './components/Appearance'),
+	Position = require( './components/Position'),
+	Physics = require( './components/Physics' ),
+	Target = require( './components/Target' ),
+	PlayerControllable = require( './components/PlayerControllable' )
 ;
 
 class Runtime {
@@ -11,9 +19,42 @@ class Runtime {
 
 		this.clock = new Clock();
 
-		MainSystem.init( this );
-		MainSystem.add( 'render_system', new RenderSystem() );
-		MainSystem.add( 'physics_system', new PhysicsSystem() );
+		World.init( this );
+		World.add( new RenderSystem() );
+		World.add( new PhysicsSystem() );
+		World.add( new PlayerControlSystem() );
+
+		for( let i = 0; i < 50; i++ ) {
+
+			let entity = new Entity();
+			entity.addComponent( new Appearance( rand.between( 3, 15 ) ) );
+			entity.addComponent( new Position( rand.between( 0, 800 ), rand.between( 0, 600 ) ) );
+			entity.addComponent( new Physics( {
+				weight: rand.between( 1, 30 ),
+				slowingRadius: rand.between( 10, 500 )
+			} ) );
+			entity.addComponent( new PlayerControllable() );
+		}
+
+		let player = new Entity();
+		player.addComponent( new Appearance( 5 ) );
+		player.addComponent( new Position( 50, 10 ) );
+
+		let player2 = new Entity();
+		player2.addComponent( new Appearance( 10 ) );
+		player2.addComponent( new Position( 50, 50 ) );
+
+		let player3 = new Entity();
+		player3.addComponent( new Appearance( 20 ) );
+		player3.addComponent( new Position( 300, 250 ) );
+		player3.addComponent( new Physics() );
+		player3.addComponent( new PlayerControllable() );
+
+		let entity4 = new Entity();
+		entity4.addComponent( new Appearance( 10 ) );
+		entity4.addComponent( new Position( 0, 0 ) );
+		entity4.addComponent( new Physics( { weight: 500, slowingRadius: 10 } ) );
+		entity4.addComponent( new PlayerControllable() );
 
 		this.run();
 	}
@@ -23,7 +64,7 @@ class Runtime {
 		requestAnimationFrame( proxy( this, this.run ) );
 
 		this.clock.tick();
-		MainSystem.update( this.clock.deltaTime );
+		World.update( this.clock.deltaTime );
 	}
 }
 

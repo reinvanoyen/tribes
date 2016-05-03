@@ -8,14 +8,7 @@ class Vector2f {
 
 	length() {
 
-		let len = Math.sqrt( Math.abs( this.x * this.x + this.y * this.y ) );
-
-		if( isNaN( len ) ) {
-
-			return 0;
-		}
-
-		return len;
+		return Math.sqrt( Math.abs( this.x * this.x + this.y * this.y ) );
 	}
 
 	lerp( v, factor ) {
@@ -30,9 +23,16 @@ class Vector2f {
 
 	normalize() {
 
-		let length = this.length();
+		let len = this.length();
 
-		return new Vector2f( this.x / length, this.y / length );
+		if( len > 0 ) {
+
+			len = 1 / Math.sqrt( len );
+			
+			return new Vector2f( this.x * len, this.y * len );
+		}
+
+		return this;
 	}
 
 	cross( v ) {
@@ -72,7 +72,7 @@ class Vector2f {
 	mul( v ) {
 
 		if( typeof v === 'number' ) {
-
+			
 			return new Vector2f( this.x * v, this.y * v );
 		}
 

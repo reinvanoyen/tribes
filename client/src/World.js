@@ -1,6 +1,6 @@
 "use strict";
 
-var MainSystem = {
+var World = {
 
 	init: function( gameloop ) {
 
@@ -9,9 +9,9 @@ var MainSystem = {
 		this.store = {};
 		return this;
 	},
-	add: function( k, system ) {
+	add: function( system ) {
 
-		this.store[ k ] = system;
+		this.store[ system.name ] = system;
 		system.main = this;
 		this.systems.push( system );
 	},
@@ -28,4 +28,4 @@ var MainSystem = {
 	}
 };
 
-module.exports = MainSystem;
+module.exports = World;

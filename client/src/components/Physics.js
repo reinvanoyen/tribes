@@ -1,25 +1,27 @@
 var Component = require( './Component'),
-	MainSystem = require( '../MainSystem'),
+	World = require( '../World' ),
 	Vec2 = require( '../util/Vector2f' )
 ;
 
 class Physics extends Component {
 
-	constructor( weight ) {
+	constructor( options ) {
 
 		super();
 
-		this.weight = weight;
+		options = options || {};
+
+		this.weight = options.weight || 20;
 		this.velocity = new Vec2( 0, 0 );
-		this.maxVelocity = new Vec2( 1, 1 );
+		this.maxVelocity = new Vec2( .1, .1 );
 		this.desiredVelocity = new Vec2( 0, 0 );
 		this.steering = new Vec2( 0, 0 );
-		this.slowingRadius = 200;
+		this.slowingRadius = options.slowingRadius || 75;
 
-		MainSystem.get( 'physics_system' ).add( this );
+		World.get( 'physics' ).add( this );
 	}
 
-	toString() {
+	get name() {
 
 		return 'physics';
 	}

@@ -23,6 +23,10 @@ class System {
 		}
 	}
 
+	get name() {
+		throw "System needs to implement name";
+	}
+
 	update( delta ) {}
 	onNewComponent( c ) {}
 }

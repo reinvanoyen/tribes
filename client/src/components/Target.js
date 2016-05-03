@@ -1,5 +1,5 @@
 var Component = require( './Component' ),
-	MainSystem = require( '../MainSystem' ),
+	World = require( '../World' ),
 	Vec2 = require( '../util/Vector2f' )
 ;
 
@@ -12,7 +12,7 @@ class Target extends Component {
 		this.position = new Vec2( x, y );
 	}
 
-	toString() {
+	get name() {
 
 		return 'target';
 	}

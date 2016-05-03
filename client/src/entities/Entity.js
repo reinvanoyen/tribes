@@ -10,7 +10,7 @@ class Entity {
 	addComponent( c ) {
 
 		c.attach( this );
-		this.components[ c.toString() ] = c;
+		this.components[ c.name ] = c;
 	}
 
 	hasComponent( k ) {

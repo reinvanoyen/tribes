@@ -4,16 +4,11 @@ var System = require( './System' ),
 
 class PhysicsSystem extends System {
 
-	constructor() {
-
-		super();
-	}
-
 	onNewComponent( c ) {}
 
 	update( delta ) {
 
-		this.components.forEach( function( c ) {
+		this.components.forEach( c => {
 
 			if( c.entity.hasComponent( 'position' ) && c.entity.hasComponent( 'target' ) ) {
 
@@ -35,9 +30,13 @@ class PhysicsSystem extends System {
 				c.steering = c.desiredVelocity.sub( c.velocity ).div( c.weight );
 				c.velocity = c.velocity.add( c.steering );
 
-				c.entity.getComponent( 'position' ).position = c.entity.getComponent( 'position' ).position.add( c.velocity.mul( delta ) );
+				c.entity.getComponent( 'position' ).position = c.entity.getComponent( 'position' ).position.add( c.velocity.mul( delta / 10 ) );
 			}
 		} );
+	}
+
+	get name() {
+		return 'physics';
 	}
 }
 
