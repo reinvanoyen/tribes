@@ -2,7 +2,7 @@
 
 var PIXI = require( 'pixi.js' ),
 	$ = require( 'jquery' ),
-	GameLoop = require( './GameLoop' ),
+	Runtime = require( './Runtime' ),
 	Player = require( './entities/Player' )
 ;
 
@@ -13,8 +13,7 @@ class App {
 		this.client = new Colyseus('ws://localhost:3553');
 		this.joinRoom( 'room' );
 
-		this.gameloop = new GameLoop();
-		this.gameloop.build();
+		this.runtime = new Runtime();
 
 		var that = this;
 

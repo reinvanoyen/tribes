@@ -1,11 +1,24 @@
 var System = require( './System' ),
-	MainSystem = require( '../MainSystem' );
+	MainSystem = require( '../MainSystem'),
+	PIXI = require( 'pixi.js'),
+	$ = require( 'jquery' )
+;
 
 class RenderSystem extends System {
 
+	constructor() {
+
+		super();
+
+		this.renderer = new PIXI.WebGLRenderer( 800, 600 );
+		this.stage = new PIXI.Container();
+
+		$( 'body' ).append( $( this.renderer.view ) );
+	}
+
 	onNewComponent( c ) {
 
-		MainSystem.gameloop.stage.addChild( c.sprite );
+		this.stage.addChild( c.sprite );
 	}
 
 	update( delta ) {
@@ -14,6 +27,8 @@ class RenderSystem extends System {
 
 			console.log( 'render at loc' );
 		} );
+
+		this.renderer.render( this.stage );
 	}
 }
 
