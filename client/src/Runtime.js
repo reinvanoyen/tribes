@@ -24,8 +24,8 @@ class Runtime {
 		World.add( new PhysicsSystem() );
 		World.add( new PlayerControlSystem() );
 
-		for( let i = 0; i < 50; i++ ) {
-
+		for( let i = 0; i < 1000; i++ )
+		{
 			let entity = new Entity();
 			entity.addComponent( new Appearance( rand.between( 3, 15 ) ) );
 			entity.addComponent( new Position( rand.between( 0, 800 ), rand.between( 0, 600 ) ) );
@@ -35,26 +35,6 @@ class Runtime {
 			} ) );
 			entity.addComponent( new PlayerControllable() );
 		}
-
-		let player = new Entity();
-		player.addComponent( new Appearance( 5 ) );
-		player.addComponent( new Position( 50, 10 ) );
-
-		let player2 = new Entity();
-		player2.addComponent( new Appearance( 10 ) );
-		player2.addComponent( new Position( 50, 50 ) );
-
-		let player3 = new Entity();
-		player3.addComponent( new Appearance( 20 ) );
-		player3.addComponent( new Position( 300, 250 ) );
-		player3.addComponent( new Physics() );
-		player3.addComponent( new PlayerControllable() );
-
-		let entity4 = new Entity();
-		entity4.addComponent( new Appearance( 10 ) );
-		entity4.addComponent( new Position( 0, 0 ) );
-		entity4.addComponent( new Physics( { weight: 500, slowingRadius: 10 } ) );
-		entity4.addComponent( new PlayerControllable() );
 
 		this.run();
 	}

@@ -5,7 +5,7 @@ var System = require( './System' ),
 	Outline = require( '../rendering/filters/Outline' ),
 	Lightmap = require( '../rendering/filters/Lightmap' )
 ;
-//
+
 class RenderSystem extends System {
 
 	constructor() {
@@ -16,7 +16,7 @@ class RenderSystem extends System {
 		this.renderer.backgroundColor = 0x0A042C;
 		this.stage = new PIXI.Container();
 
-		this.stage.filters = [ new Outline( 800, 600, 5, 0xF14000 ) ) ];
+		this.stage.filters = [ new Outline( 800, 600, 5, 0xF14000 ) ];
 
 		$( 'body' ).append( $( this.renderer.view ) );
 	}
